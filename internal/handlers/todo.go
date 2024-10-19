@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"log"
 	"net/http"
 	"todo/internal/models"
 	"todo/internal/service"
@@ -47,7 +46,6 @@ func (tdH *ToDoHandler) GetToDoByIDHandler(c echo.Context) error {
 	}
 
 	// Get to do by param ID
-	log.Printf("type of paramID %T", paramId)
 	toDo, err := tdH.tdsvc.GetToDoByID(paramId)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
