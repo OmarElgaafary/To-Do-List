@@ -2,9 +2,10 @@ package main
 
 import (
 	"log"
-	db "todo/internal/db"
+	"todo/internal/db"
+	"todo/internal/handlers"
 	"todo/internal/migrate"
-	"todo/internal/models"
+	"todo/internal/server"
 	"todo/internal/service"
 )
 
@@ -24,41 +25,20 @@ func main() {
 		log.Println("migration successful")
 	}
 
-	tdsvc := service.NewItemService(db.GetDB())
+	todoService := service.NewItemService(db.GetDB())
 
-	// t1 := &models.ToDo{ID: 106, Title: "hundred", Body: "hundred-body", Finished: false}
-	log.Println("svc successful")
-	//CREATING TO DO
-	// err = tdsvc.CreateToDo(t1)
-	// if err != nil {
-	// 	log.Fatal("error: error occured while creating object", err)
-	// }
+	todoHandler := handlers.NewtoDoHandler(todoService)
 
-	var todo *models.ToDo
-
-	todo, err = tdsvc.GetToDoByID(105)
-	if err != nil {
-		log.Fatal(err)
-	} else {
-		log.Println("todo 105 title before update is :", todo.Title)
-	}
-
-	todo.Title = "hundred-five"
-	err = tdsvc.UpdateToDo(todo)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	todo, err = tdsvc.GetToDoByID(105)
-	if err != nil {
-		log.Fatal(err)
-	} else {
-		log.Println("todo 105 title AFTER update is :", todo.Title)
-	}
-
-	// err = tdsvc.DeleteToDoByID(100)
+	// var x string
+	// x = "106"
+	// fmt.Printf("type of x is %T", x)
+	// y, err := strconv.ParseUint(x, 10, 64)
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
+	// log.Print("type of y from reflect is ", reflect.TypeOf(y))
+	// fmt.Printf("type of y is %T", y)
+
+	server.RunServer(todoHandler)
 
 }

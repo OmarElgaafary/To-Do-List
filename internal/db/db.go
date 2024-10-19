@@ -20,3 +20,7 @@ func Init() error {
 func GetDB() *gorm.DB {
 	return agorm
 }
+
+func testDB() {
+
+}
