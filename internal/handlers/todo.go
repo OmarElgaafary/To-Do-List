@@ -22,7 +22,7 @@ func (tdH *ToDoHandler) CreateToDoHandler(c echo.Context) error {
 	if err := c.Bind(&Body); err != nil {
 		//return c.JSON(http.StatusBadRequest, map[string]string{"error": "bad request"})
 		//return echo.ErrBadRequest
-		return echo.NewHTTPError(http.StatusBadRequest, "bad response")
+		return echo.NewHTTPError(http.StatusBadRequest, "bad request")
 	}
 
 	// PREPARE RESPONSE (CREATE TODO)

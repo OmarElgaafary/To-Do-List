@@ -25,12 +25,12 @@ func (tdsvc *ToDoService) CreateToDo(todo *models.ToDo) error {
 func (tdsvc *ToDoService) GetToDoByID(strID string) (*models.ToDo, error) {
 	ID, err := strconv.ParseUint(strID, 10, 64)
 	if err != nil {
-		return nil, fmt.Errorf("failed to convert id %v", err)
+		return nil, fmt.Errorf("error while converting id (\"%s\") :%v", strID, err)
 	}
 	var todo models.ToDo
 	getRes := tdsvc.gdb.First(&todo, ID)
 	if getRes.Error != nil {
-		return nil, getRes.Error
+		return nil, fmt.Errorf("error while fetching todo with ID (%d): %v", ID, getRes.Error)
 	}
 	return &todo, nil
 }
